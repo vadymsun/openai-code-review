@@ -60,11 +60,11 @@ public class OpenAiCodeReview {
         String jsonInputData = "{"
                 + "\"model\":\"glm-4-flash\","
                 + "\"messages\": ["
-                + "     {"
-                + "         \"role\": \"user\","
-                + "         \"content\": \"你是一个高级编程架构师，精通各类场景方案、架构设计和编程语言请，请您根据git diff记录，对代码做出评审。代码如下:\""
+                + "{"
+                + "\"role\": \"user\","
+                + "\"content\": \"你是一个高级编程架构师，精通各类场景方案、架构设计和编程语言请，请您根据git diff记录，对代码做出评审。代码如下:\""
                 + diffCode
-                + "     }"
+                + "}"
                 + "]"
                 + "}";
 
