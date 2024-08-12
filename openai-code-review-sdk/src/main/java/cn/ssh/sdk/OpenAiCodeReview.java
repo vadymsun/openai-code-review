@@ -43,7 +43,7 @@ public class OpenAiCodeReview {
     private static String codeReview(String diffCode) throws Exception {
 
         // chatglm 密钥
-        String apiKeySecret = "c78fbacd3e10118ad5649d7a54a3a163.UunYDBxpzeClvSKZ";
+        String apiKeySecret = "941fab44c4e16cc56b4a0d4c5ca899a2.DeExIOpaOP001csA";
         // 通过密钥获取token
         String token = TokenUtils.getToken(apiKeySecret);
         // chatglm 大模型api地址 构造http连接
