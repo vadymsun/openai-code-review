@@ -2,12 +2,10 @@ package cn.ssh.sdk;
 
 import cn.ssh.sdk.types.utils.TokenUtils;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class OpenAiCodeReview {
     public static void main(String[] args) throws Exception {
@@ -35,61 +33,63 @@ public class OpenAiCodeReview {
 
         System.out.println("diff code：" + diffCode.toString());
 
-        // 2. chatglm 代码评审
-        //String log = codeReview(diffCode.toString());
-        //System.out.println("code review：" + log);
+        // 2. 调用 chatglm 进行代码评审 获取评审的结果
+        String log = codeReview(diffCode.toString());
+        System.out.println("code review：" + log);
 
 
     }
-/**
+
     private static String codeReview(String diffCode) throws Exception {
 
+        // chatglm 密钥
         String apiKeySecret = "c78fbacd3e10118ad5649d7a54a3a163.UunYDBxpzeClvSKZ";
+        // 通过密钥获取token
         String token = TokenUtils.getToken(apiKeySecret);
-
+        // chatglm 大模型api地址 构造http连接
         URL url = new URL("https://open.bigmodel.cn/api/paas/v4/chat/completions");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
+        // 设置http请求头信息
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Authorization", "Bearer " + token);
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
         connection.setDoOutput(true);
 
-        ChatCompletionRequest chatCompletionRequest = new ChatCompletionRequest();
-        chatCompletionRequest.setModel(Model.GLM_4_FLASH.getCode());
-        chatCompletionRequest.setMessages(new ArrayList<ChatCompletionRequest.Prompt>() {
-            private static final long serialVersionUID = -7988151926241837899L;
+        String jsonInputData = "{"
+                + "\"model\":\"glm-4\","
+                + "\"stream\": \"true\","
+                + "\"messages\": ["
+                + "     {"
+                + "         \"role\": \"user\","
+                + "         \"content\": \"你是一个高级编程架构师，精通各类场景方案、架构设计和编程语言请，请您根据git diff记录，对代码做出评审。代码如下:\""
+                + diffCode
+                + "     }"
+                + "]"
+                + "}";
 
-            {
-                add(new ChatCompletionRequest.Prompt("user", "你是一个高级编程架构师，精通各类场景方案、架构设计和编程语言请，请您根据git diff记录，对代码做出评审。代码如下:"));
-                add(new ChatCompletionRequest.Prompt("user", diffCode));
-            }
-        });
 
-        try (OutputStream os = connection.getOutputStream()) {
-            byte[] input = JSON.toJSONString(chatCompletionRequest).getBytes(StandardCharsets.UTF_8);
-            os.write(input);
+        try(OutputStream outputStream = connection.getOutputStream()) {
+            byte[] bytes = jsonInputData.getBytes(StandardCharsets.UTF_8);
+            outputStream.write(bytes);
         }
 
         int responseCode = connection.getResponseCode();
         System.out.println(responseCode);
 
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String inputLine;
 
         StringBuilder content = new StringBuilder();
-        while ((inputLine = in.readLine()) != null) {
+        while ((inputLine = bufferedReader.readLine()) != null){
             content.append(inputLine);
         }
 
-        in.close();
+        bufferedReader.close();
         connection.disconnect();
 
-        System.out.println("评审结果：" + content.toString());
-
-        ChatCompletionSyncResponse response = JSON.parseObject(content.toString(), ChatCompletionSyncResponse.class);
-        return response.getChoices().get(0).getMessage().getContent();
+        return content.toString();
     }
-*/
+
 }

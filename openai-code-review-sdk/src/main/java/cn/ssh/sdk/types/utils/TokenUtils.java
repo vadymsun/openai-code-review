@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * chatglm token获取工具类
+ */
 public class TokenUtils {
     // 过期时间；默认30分钟
     private static final long expireMillis = 30 * 60 * 1000L;
