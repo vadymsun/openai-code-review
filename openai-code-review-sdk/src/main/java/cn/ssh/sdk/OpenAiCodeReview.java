@@ -16,7 +16,12 @@ public class OpenAiCodeReview {
     public static void main(String[] args) throws Exception {
         System.out.println("测试执行");
 
-         // 1. 代码检出
+        String githubToken = System.getenv("GITHUB_TOKEN");
+        if(githubToken == null || githubToken.isEmpty()){
+            throw  new RuntimeException();
+        }
+
+        // 1. 代码检出
         // java自带的Linux命令执行工具
         ProcessBuilder processBuilder = new ProcessBuilder("git", "diff", "HEAD~1", "HEAD");
         // 设置工作目录
@@ -40,7 +45,11 @@ public class OpenAiCodeReview {
 
         // 2. 调用 chatglm 进行代码评审 获取评审的结果
         String log = codeReview(diffCode.toString());
-        System.out.println("code review：" + log);
+
+        // 审查日志写入
+        String link = writeLog(githubToken, log);
+        System.out.println("link:"+ link);
+
 
 
     }
