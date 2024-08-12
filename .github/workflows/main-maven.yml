@@ -28,7 +28,7 @@ jobs:
         run: mvn clean install
 
       - name: Copy openai-code-review-sdk JAR
-        run: mvn dependency:copy -Dartifact=cm.ssh:openai-code-review-sdk:1.0 -DoutputDirectory=./libs
+        run: mvn dependency:copy -Dartifact=cn.ssh:openai-code-review-sdk:1.0 -DoutputDirectory=./libs
 
       - name: Run code review
         run: java -jar ./libs/openai-code-review-sdk-1.0.jar
