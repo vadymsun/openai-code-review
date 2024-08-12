@@ -58,8 +58,7 @@ public class OpenAiCodeReview {
         connection.setDoOutput(true);
 
         String jsonInputData = "{"
-                + "\"model\":\"glm-4\","
-                + "\"stream\": \"true\","
+                + "\"model\":\"glm-4-flash\","
                 + "\"messages\": ["
                 + "     {"
                 + "         \"role\": \"user\","
