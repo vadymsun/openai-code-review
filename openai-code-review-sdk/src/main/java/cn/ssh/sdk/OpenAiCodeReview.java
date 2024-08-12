@@ -12,12 +12,16 @@ import java.net.URL;
 public class OpenAiCodeReview {
     public static void main(String[] args) throws Exception {
         System.out.println("测试执行");
-         // 1. 代码检出
-        ProcessBuilder processBuilder = new ProcessBuilder("git", "diff", "HEAD~1", "HEAD");
-        processBuilder.directory(new File("."));
 
+         // 1. 代码检出
+        // java自带的Linux命令执行工具
+        ProcessBuilder processBuilder = new ProcessBuilder("git", "diff", "HEAD~1", "HEAD");
+        // 设置工作目录
+        processBuilder.directory(new File("."));
+        // 执行命令
         Process process = processBuilder.start();
 
+        // 获取到所有不一样的行
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
         String line;
 
