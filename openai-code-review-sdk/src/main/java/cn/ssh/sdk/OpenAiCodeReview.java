@@ -50,11 +50,12 @@ public class OpenAiCodeReview {
         // 2. 调用 chatglm 进行代码评审 获取评审的结果
         String log = codeReview(diffCode.toString());
 
-        // 审查日志写入
+        // 3. 审查日志写入github仓库
         String link = writeLog(githubToken, log);
         System.out.println("link:"+ link);
 
-
+        // 4. 推送微信消息
+        SendWXMessage(link);
 
     }
 
