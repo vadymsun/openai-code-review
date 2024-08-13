@@ -1,5 +1,8 @@
 package cn.ssh.sdk;
 
+import cn.ssh.sdk.model.ChatCompletionRequest;
+import cn.ssh.sdk.model.ChatCompletionSyncResponse;
+import cn.ssh.sdk.model.Model;
 import cn.ssh.sdk.types.utils.TokenUtils;
 import cn.ssh.sdk.model.Message;
 import cn.ssh.sdk.types.utils.WXAccessTokenUtils;
@@ -12,6 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
@@ -87,27 +91,41 @@ public class OpenAiCodeReview {
                 + "}";
 
 
-        System.out.println("json数据++++++++++++++++++++"+jsonInputData);
-        try(OutputStream outputStream = connection.getOutputStream()) {
-            byte[] bytes = jsonInputData.getBytes(StandardCharsets.UTF_8);
-            outputStream.write(bytes);
+        ChatCompletionRequest chatCompletionRequest = new ChatCompletionRequest();
+        chatCompletionRequest.setModel(Model.GLM_4_FLASH.getCode());
+        chatCompletionRequest.setMessages(new ArrayList<ChatCompletionRequest.Prompt>() {
+            private static final long serialVersionUID = -7988151926241837899L;
+
+            {
+                add(new ChatCompletionRequest.Prompt("user", "你是一个高级编程架构师，精通各类场景方案、架构设计和编程语言请，请您根据git diff记录，对代码做出评审。代码如下:"));
+                add(new ChatCompletionRequest.Prompt("user", diffCode));
+            }
+        });
+
+        try (OutputStream os = connection.getOutputStream()) {
+            byte[] input = JSON.toJSONString(chatCompletionRequest).getBytes(StandardCharsets.UTF_8);
+            os.write(input);
         }
 
         int responseCode = connection.getResponseCode();
         System.out.println(responseCode);
 
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String inputLine;
 
         StringBuilder content = new StringBuilder();
-        while ((inputLine = bufferedReader.readLine()) != null){
+        while ((inputLine = in.readLine()) != null) {
             content.append(inputLine);
         }
 
-        bufferedReader.close();
+        in.close();
         connection.disconnect();
 
-        return content.toString();
+        System.out.println("评审结果：" + content.toString());
+
+        ChatCompletionSyncResponse response = JSON.parseObject(content.toString(), ChatCompletionSyncResponse.class);
+        return response.getChoices().get(0).getMessage().getContent();
+
     }
 
     private static String writeLog(String token, String log) throws Exception {
