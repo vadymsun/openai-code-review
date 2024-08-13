@@ -87,8 +87,7 @@ public class OpenAiCodeReview {
                 + "}";
 
 
-
-
+        System.out.println("json数据++++++++++++++++++++"+jsonInputData);
         try(OutputStream outputStream = connection.getOutputStream()) {
             byte[] bytes = jsonInputData.getBytes(StandardCharsets.UTF_8);
             outputStream.write(bytes);
@@ -140,7 +139,7 @@ public class OpenAiCodeReview {
         return "https://github.com/vadymsun/openai-code-review-log/blob/master/" + dateFolderName + "/" + fileName;
     }
 
-    private static String generateRandomString(int length) {
+    private static String generateRandomString(int length)  {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         Random random = new Random();
         StringBuilder sb = new StringBuilder(length);
