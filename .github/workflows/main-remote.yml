@@ -3,10 +3,10 @@ name: Build and Run OpenAiCodeReview By Main Maven Jar
 on:
   push:
     branches:
-      - master-close
+      - master
   pull_request:
     branches:
-      - master-close
+      - master
 
 jobs:
   build-and-run:
@@ -24,11 +24,11 @@ jobs:
           distribution: 'temurin'  # 你可以选择其他发行版，如 'adopt' 或 'zulu'
           java-version: '11'
 
-      - name: build With Maven
-        run: mvn clean install
+      - name: Create lib dictionary
+        run: mkdir -p ./libs
 
-      - name: Copy openai-code-review-sdk JAR
-        run: mvn dependency:copy -Dartifact=cn.ssh:openai-code-review-sdk:1.0 -DoutputDirectory=./libs
+      - name: Download openai-code-review-sdk.jar
+        run: wget -0 ./libs/openai-code-review-sdk-1.0.jar https://github.com/vadymsun/openai-code-review-log/releases/download/v1.0/openai-code-review-sdk-1.0.jar
 
       - name: Run code review
         run: java -jar ./libs/openai-code-review-sdk-1.0.jar
