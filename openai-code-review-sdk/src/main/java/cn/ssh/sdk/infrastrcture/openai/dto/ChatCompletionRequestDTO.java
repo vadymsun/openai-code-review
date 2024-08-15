@@ -52,7 +52,7 @@ public class ChatCompletionRequestDTO {
         return messages;
     }
 
-    public void setMessages(ArrayList<ChatCompletionRequest.Prompt> messages) {
+    public void setMessages(ArrayList<ChatCompletionRequestDTO.Prompt> messages) {
         this.messages = messages;
     }
 
