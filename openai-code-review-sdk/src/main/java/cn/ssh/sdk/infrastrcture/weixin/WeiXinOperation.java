@@ -47,9 +47,6 @@ public class WeiXinOperation {
         connection.setRequestProperty("Accept", "application/json");
         connection.setDoOutput(true);
 
-        System.out.println("模板id" + templateID);
-        System.out.println("模板id长度" + templateID.length());
-        System.out.println(JSON.toJSONString(templateMessageDTO).length());
         // 发送数据
         try (OutputStream outputStream = connection.getOutputStream()) {
             byte[] input = JSON.toJSONString(templateMessageDTO).getBytes(StandardCharsets.UTF_8);
