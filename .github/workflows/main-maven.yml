@@ -52,7 +52,7 @@ jobs:
           echo "Branch name is ${{ env.BRANCH_NAME }}"
           echo "Commit author is ${{ env.COMMIT_AUTHOR }}"
           echo "Commit message is ${{ env.COMMIT_MESSAGE }}"      
-          echo "模板id  ${{ secrets.WEIXIN_TEMPLATE_ID }}"      
+            
 
       - name: Run Code Review
         run: java -jar ./libs/openai-code-review-sdk-1.0.jar
@@ -72,3 +72,9 @@ jobs:
           # OpenAi - ChatGLM 配置「https://open.bigmodel.cn/api/paas/v4/chat/completions」、「https://open.bigmodel.cn/usercenter/apikeys」
           CHATGLM_APIHOST: ${{ secrets.CHATGLM_APIHOST }}
           CHATGLM_APIKEYSECRET: ${{ secrets.CHATGLM_APIKEYSECRET }}
+          
+      - name: Print repository, branch name, commit author, and commit message
+        run: |
+          echo $GITHUB_TOKEN
+          echo "Branch name is $WEIXIN_TEMPLATE_ID"
+   
