@@ -49,7 +49,7 @@ public class WeiXinOperation {
 
         System.out.println("模板id" + templateID);
         System.out.println("模板id长度" + templateID.length());
-        System.out.println(templateMessageDTO);
+        System.out.println(JSON.toJSONString(templateMessageDTO));
         // 发送数据
         try (OutputStream outputStream = connection.getOutputStream()) {
             byte[] input = JSON.toJSONString(templateMessageDTO).getBytes(StandardCharsets.UTF_8);
