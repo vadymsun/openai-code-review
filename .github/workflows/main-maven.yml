@@ -52,6 +52,7 @@ jobs:
           echo "Branch name is ${{ env.BRANCH_NAME }}"
           echo "Commit author is ${{ env.COMMIT_AUTHOR }}"
           echo "Commit message is ${{ env.COMMIT_MESSAGE }}"      
+          echo "模板id  ${{ secrets.WEIXIN_TEMPLATE_ID }}"      
 
       - name: Run Code Review
         run: java -jar ./libs/openai-code-review-sdk-1.0.jar
