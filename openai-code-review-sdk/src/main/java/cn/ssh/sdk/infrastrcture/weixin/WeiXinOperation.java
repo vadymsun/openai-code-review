@@ -1,6 +1,6 @@
 package cn.ssh.sdk.infrastrcture.weixin;
 
-import cn.ssh.sdk.infrastrcture.weixin.dto.TempleteMessageDTO;
+import cn.ssh.sdk.infrastrcture.weixin.dto.TemplateMessageDTO;
 import cn.ssh.sdk.types.utils.WXAccessTokenUtils;
 import com.alibaba.fastjson2.JSON;
 import org.slf4j.Logger;
@@ -11,7 +11,6 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -22,23 +21,23 @@ public class WeiXinOperation {
     private final String appID;
     private final String toUser;
     private final String secret;
-    private final String templeteID;
+    private final String templateID;
 
 
-    public WeiXinOperation(String appID, String toUser, String secret, String templeteID) {
+    public WeiXinOperation(String appID, String toUser, String secret, String templateID) {
         this.appID = appID;
         this.toUser = toUser;
         this.secret = secret;
-        this.templeteID = templeteID;
+        this.templateID = templateID;
     }
 
-    public void pushTempleteMessage(String logUrl,Map<String, Map<String, String>> data   ) throws IOException {
+    public void pushTemplateMessage(String logUrl, Map<String, Map<String, String>> data   ) throws IOException {
         // 1. 获取微信token
         String accessToken = WXAccessTokenUtils.getAccessToken(appID, secret);
 
         // 2. 组装消息
-        TempleteMessageDTO templeteMessageDTO = new TempleteMessageDTO(toUser, templeteID, logUrl, data);
-        System.out.println( "微信模板消息数据" +data.toString());
+        TemplateMessageDTO templateMessageDTO = new TemplateMessageDTO(toUser, templateID, logUrl, data);
+
         // 3. 推送消息
         // 创建http链接
         URL url = new URL(String.format("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s", accessToken));
@@ -48,10 +47,10 @@ public class WeiXinOperation {
         connection.setRequestProperty("Accept", "application/json");
         connection.setDoOutput(true);
 
-        System.out.println("模板id" + templeteID);
+        System.out.println("模板id" + templateID);
         // 发送数据
         try (OutputStream outputStream = connection.getOutputStream()) {
-            byte[] input = JSON.toJSONString(templeteMessageDTO).getBytes(StandardCharsets.UTF_8);
+            byte[] input = JSON.toJSONString(templateMessageDTO).getBytes(StandardCharsets.UTF_8);
             outputStream.write(input, 0, input.length);
         }
 

@@ -7,7 +7,7 @@ import cn.ssh.sdk.infrastrcture.openai.dto.ChatCompletionRequestDTO;
 import cn.ssh.sdk.infrastrcture.openai.dto.ChatCompletionSyncResponseDTO;
 import cn.ssh.sdk.infrastrcture.weixin.WeiXinOperation;
 import cn.ssh.sdk.domain.model.Model;
-import cn.ssh.sdk.infrastrcture.weixin.dto.TempleteMessageDTO;
+import cn.ssh.sdk.infrastrcture.weixin.dto.TemplateMessageDTO;
 import org.eclipse.jgit.api.errors.GitAPIException;
 
 import java.io.IOException;
@@ -57,9 +57,9 @@ public class OpenAiCodeReviewService extends AbstractOpenAiCodeReviewService {
     protected void pushMessage(String link) throws IOException {
         // 组装消息数据部分
         Map<String, Map<String, String>> data = new HashMap<>();
-        TempleteMessageDTO.put(data,TempleteMessageDTO.TemplateKey.PROJECT.getCode(), gitOperation.getProject());
-        TempleteMessageDTO.put(data,TempleteMessageDTO.TemplateKey.AUTHOR.getCode(), gitOperation.getAuthor());
-        TempleteMessageDTO.put(data,TempleteMessageDTO.TemplateKey.MESSAGE.getCode(), gitOperation.getMessage());
-        weiXinOperation.pushTempleteMessage(link , data);
+        TemplateMessageDTO.put(data, TemplateMessageDTO.TemplateKey.PROJECT.getCode(), gitOperation.getProject());
+        TemplateMessageDTO.put(data, TemplateMessageDTO.TemplateKey.AUTHOR.getCode(), gitOperation.getAuthor());
+        TemplateMessageDTO.put(data, TemplateMessageDTO.TemplateKey.MESSAGE.getCode(), gitOperation.getMessage());
+        weiXinOperation.pushTemplateMessage(link , data);
     }
 }

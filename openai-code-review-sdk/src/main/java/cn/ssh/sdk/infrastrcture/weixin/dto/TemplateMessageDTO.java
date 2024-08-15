@@ -3,14 +3,14 @@ package cn.ssh.sdk.infrastrcture.weixin.dto;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TempleteMessageDTO {
+public class TemplateMessageDTO {
 
     private String touser;
     private String templateId;
     private String url;
     private Map<String, Map<String, String>> data;
 
-    public TempleteMessageDTO(String touser, String templateId, String url,Map<String, Map<String, String>> data) {
+    public TemplateMessageDTO(String touser, String templateId, String url, Map<String, Map<String, String>> data) {
         this.touser = touser;
         this.templateId = templateId;
         this.url = url;
