@@ -38,7 +38,7 @@ public class WeiXinOperation {
 
         // 2. 组装消息
         TempleteMessageDTO templeteMessageDTO = new TempleteMessageDTO(toUser, templeteID, logUrl, data);
-
+        logger.debug( "微信模板消息数据" +data.toString());
         // 3. 推送消息
         // 创建http链接
         URL url = new URL(String.format("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s", accessToken));
@@ -57,7 +57,7 @@ public class WeiXinOperation {
         // 打印微信消息发送结果日志
         try (Scanner scanner = new Scanner(connection.getInputStream(), StandardCharsets.UTF_8.name())) {
             String response = scanner.useDelimiter("\\A").next();
-            logger.debug(response);
+            logger.debug("微信通知结果"+response);
         }
 
     }
