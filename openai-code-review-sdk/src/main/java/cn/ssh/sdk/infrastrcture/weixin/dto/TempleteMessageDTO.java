@@ -5,12 +5,18 @@ import java.util.Map;
 
 public class TempleteMessageDTO {
 
-    private String touser = "otOml6h5anAB_zlFCH1z24kVEw3E";
-    private String template_id = "E-PPqm7RbuQob-v6vxefyzxdjnolncSTr47Lo5eWFNo";
-    private String url = "https://weixin.qq.com";
-    private Map<String, Map<String, String>> data = new HashMap<>();
+    private String touser;
+    private String templateId;
+    private String url;
+    private Map<String, Map<String, String>> data;
 
-    public void put(String key, String value) {
+    public TempleteMessageDTO(String touser, String templateId, String url,Map<String, Map<String, String>> data) {
+        this.touser = touser;
+        this.templateId = templateId;
+        this.url = url;
+        this.data = data;
+    }
+    public static void put(Map<String, Map<String, String>> data, String key, String value) {
         data.put(key, new HashMap<String, String>() {
             private static final long serialVersionUID = 7092338402387318563L;
 
@@ -20,36 +26,29 @@ public class TempleteMessageDTO {
         });
     }
 
-    public String getTouser() {
-        return touser;
+    public  enum TemplateKey {
+        PROJECT("project","项目名称"),
+        AUTHOR("author","提交者"),
+        MESSAGE("message","提交信息"),
+        ;
+
+        private String code;
+        private String desc;
+
+        TemplateKey(String code, String desc) {
+            this.code = code;
+            this.desc = desc;
+        }
+
+        public String getCode() {
+            return code;
+        }
+
+        public String getDesc() {
+            return desc;
+        }
     }
 
-    public void setTouser(String touser) {
-        this.touser = touser;
-    }
 
-    public String getTemplate_id() {
-        return template_id;
-    }
-
-    public void setTemplate_id(String template_id) {
-        this.template_id = template_id;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public Map<String, Map<String, String>> getData() {
-        return data;
-    }
-
-    public void setData(Map<String, Map<String, String>> data) {
-        this.data = data;
-    }
 
 }

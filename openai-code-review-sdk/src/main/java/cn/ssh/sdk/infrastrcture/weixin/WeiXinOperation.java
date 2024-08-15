@@ -11,6 +11,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 
@@ -30,17 +32,14 @@ public class WeiXinOperation {
         this.templeteID = templeteID;
     }
 
-    public void pushTempleteMessage(String logUrl) throws IOException {
+    public void pushTempleteMessage(String logUrl,Map<String, Map<String, String>> data   ) throws IOException {
         // 1. 获取微信token
         String accessToken = WXAccessTokenUtils.getAccessToken(appID, secret);
 
-        // 2.组装消息数据部分
-        TempleteMessageDTO message = new TempleteMessageDTO();
-        message.put("project", "测试项目");
-        message.put("review", logUrl);
-        message.setUrl(logUrl);
+        // 2. 组装消息
+        TempleteMessageDTO templeteMessageDTO = new TempleteMessageDTO(toUser, templeteID, logUrl, data);
 
-        // 3.发送消息
+        // 3. 推送消息
         // 创建http链接
         URL url = new URL(String.format("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s", accessToken));
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -51,7 +50,7 @@ public class WeiXinOperation {
 
         // 发送数据
         try (OutputStream outputStream = connection.getOutputStream()) {
-            byte[] input = JSON.toJSONString(message).getBytes(StandardCharsets.UTF_8);
+            byte[] input = JSON.toJSONString(templeteMessageDTO).getBytes(StandardCharsets.UTF_8);
             outputStream.write(input, 0, input.length);
         }
 

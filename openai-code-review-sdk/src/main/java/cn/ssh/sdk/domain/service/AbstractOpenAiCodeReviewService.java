@@ -3,8 +3,8 @@ package cn.ssh.sdk.domain.service;
 import cn.ssh.sdk.infrastrcture.git.GitOperation;
 import cn.ssh.sdk.infrastrcture.openai.OpenAi;
 import cn.ssh.sdk.infrastrcture.weixin.WeiXinOperation;
+import jdk.nashorn.internal.objects.annotations.Getter;
 import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.util.IO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +13,6 @@ import java.io.IOException;
 public abstract class AbstractOpenAiCodeReviewService  implements IOpenAiCodeReviewService{
 
     private final Logger logger = LoggerFactory.getLogger(AbstractOpenAiCodeReviewService.class);
-
     protected final GitOperation gitOperation;
     protected final OpenAi openAi;
     protected final WeiXinOperation weiXinOperation;

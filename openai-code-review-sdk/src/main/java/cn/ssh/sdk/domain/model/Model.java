@@ -1,4 +1,4 @@
-package cn.ssh.sdk.model;
+package cn.ssh.sdk.domain.model;
 
 public enum Model {
     @Deprecated

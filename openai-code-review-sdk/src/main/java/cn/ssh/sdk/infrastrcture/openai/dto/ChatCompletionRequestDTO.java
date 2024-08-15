@@ -1,7 +1,6 @@
 package cn.ssh.sdk.infrastrcture.openai.dto;
 
-import cn.ssh.sdk.model.ChatCompletionRequest;
-import cn.ssh.sdk.model.Model;
+import cn.ssh.sdk.domain.model.Model;
 
 import java.util.ArrayList;
 import java.util.List;

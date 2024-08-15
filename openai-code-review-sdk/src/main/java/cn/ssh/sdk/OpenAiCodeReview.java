@@ -5,27 +5,9 @@ import cn.ssh.sdk.infrastrcture.git.GitOperation;
 import cn.ssh.sdk.infrastrcture.openai.OpenAi;
 import cn.ssh.sdk.infrastrcture.openai.imp.ChatGLM;
 import cn.ssh.sdk.infrastrcture.weixin.WeiXinOperation;
-import cn.ssh.sdk.model.ChatCompletionRequest;
-import cn.ssh.sdk.model.ChatCompletionSyncResponse;
-import cn.ssh.sdk.model.Model;
-import cn.ssh.sdk.types.utils.TokenUtils;
-import cn.ssh.sdk.model.Message;
-import cn.ssh.sdk.types.utils.WXAccessTokenUtils;
-import com.alibaba.fastjson2.JSON;
-import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
-import java.util.Scanner;
 
 public class OpenAiCodeReview {
 

@@ -1,6 +1,7 @@
 package cn.ssh.sdk.infrastrcture.git;
 
 import cn.ssh.sdk.types.utils.RandomStringUtils;
+import jdk.nashorn.internal.objects.annotations.Getter;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
@@ -13,10 +14,10 @@ public class GitOperation {
 
     private final String githubReviewLogRepoUri;
     private final String githubReviewLogRepoToken;
+
     private final String project;
     private final String branch;
     private final String author;
-
     private final String commitMessage;
 
     public GitOperation(String githubReviewLogRepoUri, String githubReviewLogRepoToken, String project, String branch, String author, String commitMessage) {
@@ -108,4 +109,20 @@ public class GitOperation {
         // 返回地址
         return githubReviewLogRepoUri + "/blob/master/" + dateFolderName + "/" + fileName;
     }
+    public String getProject() {
+        return project;
+    }
+
+    public String getBranch() {
+        return branch;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getMessage() {
+        return commitMessage;
+    }
+
 }
