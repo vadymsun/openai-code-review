@@ -31,7 +31,7 @@ public class WeiXinOperation {
         this.templateID = templateID;
     }
 
-    public void pushTemplateMessage(String logUrl, Map<String, Map<String, String>> data   ) throws IOException {
+    public void pushTemplateMessage(String logUrl, Map<String, Map<String, String>> data) throws IOException {
         // 1. 获取微信token
         String accessToken = WXAccessTokenUtils.getAccessToken(appID, secret);
 
@@ -49,7 +49,7 @@ public class WeiXinOperation {
 
         System.out.println("模板id" + templateID);
         System.out.println("模板id长度" + templateID.length());
-        System.out.println(JSON.toJSONString(templateMessageDTO));
+        System.out.println(JSON.toJSONString(templateMessageDTO).length());
         // 发送数据
         try (OutputStream outputStream = connection.getOutputStream()) {
             byte[] input = JSON.toJSONString(templateMessageDTO).getBytes(StandardCharsets.UTF_8);
