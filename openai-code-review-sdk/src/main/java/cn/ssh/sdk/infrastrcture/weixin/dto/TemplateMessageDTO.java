@@ -6,13 +6,13 @@ import java.util.Map;
 public class TemplateMessageDTO {
 
     private String touser;
-    private String templateId;
+    private String template_id;
     private String url;
     private Map<String, Map<String, String>> data;
 
     public TemplateMessageDTO(String touser, String templateId, String url, Map<String, Map<String, String>> data) {
         this.touser = touser;
-        this.templateId = templateId;
+        this.template_id = templateId;
         this.url = url;
         this.data = data;
     }
