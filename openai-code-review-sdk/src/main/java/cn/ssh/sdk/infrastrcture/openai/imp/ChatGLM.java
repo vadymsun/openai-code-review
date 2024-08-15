@@ -40,9 +40,9 @@ public class ChatGLM implements OpenAi {
         connection.setDoOutput(true);
 
         // 传输http数据
-        try (OutputStream os = connection.getOutputStream()) {
+        try (OutputStream outputStream = connection.getOutputStream()) {
             byte[] input = JSON.toJSONString(requestDTO).getBytes(StandardCharsets.UTF_8);
-            os.write(input);
+            outputStream.write(input);
         }
 
         // 获取代码评审结果

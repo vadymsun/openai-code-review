@@ -39,6 +39,7 @@ public class TokenUtils {
         // 缓存Token
         String token = cache.getIfPresent(apiKey);
         if (null != token) return token;
+
         // 创建Token
         Algorithm algorithm = Algorithm.HMAC256(apiSecret.getBytes(StandardCharsets.UTF_8));
         Map<String, Object> payload = new HashMap<>();

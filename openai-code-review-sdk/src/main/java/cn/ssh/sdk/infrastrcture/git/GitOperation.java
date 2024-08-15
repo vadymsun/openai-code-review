@@ -17,12 +17,15 @@ public class GitOperation {
     private final String branch;
     private final String author;
 
-    public GitOperation(String githubReviewLogRepoUri, String githubReviewLogRepoToken, String project, String branch, String author) {
+    private final String commitMessage;
+
+    public GitOperation(String githubReviewLogRepoUri, String githubReviewLogRepoToken, String project, String branch, String author, String commitMessage) {
         this.githubReviewLogRepoUri = githubReviewLogRepoUri;
         this.githubReviewLogRepoToken = githubReviewLogRepoToken;
         this.project = project;
         this.branch = branch;
         this.author = author;
+        this.commitMessage = commitMessage;
     }
 
 
@@ -44,7 +47,7 @@ public class GitOperation {
         process.waitFor();
 
 
-        // 比较当前提交和上次提交,并获取不同的行
+        // 比较当前提交和上次提交,获取不同的行
         ProcessBuilder diffProcessBuilder = new ProcessBuilder("git", "diff", latestHash + "^", latestHash);
         diffProcessBuilder.directory(new File("."));
         Process diffProcess = diffProcessBuilder.start();

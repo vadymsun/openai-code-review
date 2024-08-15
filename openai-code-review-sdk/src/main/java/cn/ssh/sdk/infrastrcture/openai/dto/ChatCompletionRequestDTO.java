@@ -1,7 +1,9 @@
 package cn.ssh.sdk.infrastrcture.openai.dto;
 
+import cn.ssh.sdk.model.ChatCompletionRequest;
 import cn.ssh.sdk.model.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChatCompletionRequestDTO {
@@ -50,7 +52,7 @@ public class ChatCompletionRequestDTO {
         return messages;
     }
 
-    public void setMessages(List<Prompt> messages) {
+    public void setMessages(ArrayList<ChatCompletionRequest.Prompt> messages) {
         this.messages = messages;
     }
 

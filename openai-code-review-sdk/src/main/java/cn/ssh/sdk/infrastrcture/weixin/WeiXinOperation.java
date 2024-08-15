@@ -30,7 +30,7 @@ public class WeiXinOperation {
         this.templeteID = templeteID;
     }
 
-    public void sendTempleteMessage(String logUrl) throws IOException {
+    public void pushTempleteMessage(String logUrl) throws IOException {
         // 1. 获取微信token
         String accessToken = WXAccessTokenUtils.getAccessToken(appID, secret);
 
@@ -50,9 +50,9 @@ public class WeiXinOperation {
         connection.setDoOutput(true);
 
         // 发送数据
-        try (OutputStream os = connection.getOutputStream()) {
+        try (OutputStream outputStream = connection.getOutputStream()) {
             byte[] input = JSON.toJSONString(message).getBytes(StandardCharsets.UTF_8);
-            os.write(input, 0, input.length);
+            outputStream.write(input, 0, input.length);
         }
 
         // 打印微信消息发送结果日志
